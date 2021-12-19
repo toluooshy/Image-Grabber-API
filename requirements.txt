@@ -5,9 +5,7 @@ cycler==0.10.0
 dbus-python==1.2.16
 dnspython==1.16.0
 docutils==0.16
-Kivy==1.11.1
 kiwisolver==1.1.0
-matplotlib==2.2.4
 numpy==1.16.5
 olefile==0.46
 Pillow==6.2.1
