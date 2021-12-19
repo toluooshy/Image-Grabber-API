@@ -1,6 +1,8 @@
 from typing import Optional
 
+from threading import current_thread
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 
 from bs4 import BeautifulSoup
 import requests
@@ -34,6 +36,22 @@ def geturl(link):
 
 
 app = FastAPI()
+
+origins = [
+    "http://localhost:3000",
+    "localhost:3000",
+    "http://cup-noodle-app.herokuapp.com",
+    "https://cup-noodle-app.herokuapp.com",
+    "cup-noodle-app.herokuapp.com",
+]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"]
+)
 
 
 @app.get("/")
