@@ -3,4 +3,4 @@ uvicorn==0.15.0
 pytest==6.2.5
 requests==2.26.0
 python-multipart==0.0.5
-bs4==4.8.0
+beautifulsoup4==4.8.0
