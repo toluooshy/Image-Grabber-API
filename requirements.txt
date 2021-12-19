@@ -2,11 +2,8 @@ backports.functools-lru-cache==1.6.1
 bar==0.2.1
 chardet==3.0.4
 cycler==0.10.0
-dbus-python==1.2.16
 dnspython==1.16.0
 docutils==0.16
-kiwisolver==1.1.0
-numpy==1.16.5
 olefile==0.46
 Pillow==6.2.1
 Pygments==2.3.1
