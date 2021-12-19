@@ -61,4 +61,4 @@ def read_root():
 
 @app.get("/url/{link}")
 def read_item(link: Optional[str] = None):
-    return {"link": geturl("http://" + link)}
+    return geturl("http://" + link)
