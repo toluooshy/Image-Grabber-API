@@ -40,9 +40,9 @@ app = FastAPI()
 origins = [
     "http://localhost:3000",
     "localhost:3000",
-    "http://cup-noodle-app.herokuapp.com",
-    "https://cup-noodle-app.herokuapp.com",
-    "cup-noodle-app.herokuapp.com",
+    "https://main.d5g9oyj5u2wzt.amplifyapp.com",
+    "http://main.d5g9oyj5u2wzt.amplifyapp.com",
+    "main.d5g9oyj5u2wzt.amplifyapp.com",
 ]
 
 app.add_middleware(
