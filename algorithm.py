@@ -1,32 +1,54 @@
-import html
-import requests
 from bs4 import BeautifulSoup
+import requests
+
+website = 'http://www.olin.edu/'
 
 
-def geturl(link):
-    html_page = requests.get(link)
-    soup = BeautifulSoup(html_page.content, 'html.parser')
-    images = soup.findAll('img', src=True, width=True)
-    tempurl = None
-    for image in images:
-        if int(image['width']) > 50:
-            tempurl = image['src']
-            break
+class ImageScraper:
+    def __init__(self, url):
+        self.url = url
+        self.html = ""
+        self.images = []
 
-    if tempurl == None:
-        r = requests.get(link)
-        res = html.unescape(r.text)
-        stringres = str(res)
+    def get_html(self):
+        """
+        This function gets the raw html code from the website defined in self.url
 
-        for i in range(stringres.count("</header>")):
-            stringres = stringres.split("</header>", 1)[1]
+        Takes: self
+        Use: defines self.html
+        Returns: self.html
+        """
+        try:
+            self.html = BeautifulSoup(requests.get(self.url).content, 'lxml')
+            return self.html
+        except TypeError:
+            print(
+                "This function needs an object of the type 'string' to be passed into it to work.")
 
-        tempurl = stringres.split("<img", 1)[1].split(">", 1)[0].split(
-            "src", 1)[1].split("=", 1)[1].split('"', 1)[1].split('"')[0]
+    def get_images(self):
+        """
+        This function gets the image src urls from the raw html defined in self.html
 
-    if tempurl[0] != "h":
-        tempurl = link + "/" + tempurl
-    return tempurl
+        Takes: self
+        Use: defines self.images
+        Returns: self.images
+        """
+        imgs = self.html.find_all('img')
+        for img in imgs:
+            try:
+                if len(img['src']) > 0:
+                    if img['src'][0:2] == '//':
+                        self.images.append(img['src'][2:])
+                    elif img['src'][0:1] == '/':
+                        self.images.append(self.url+img['src'][1:])
+                    else:
+                        self.images.append(img['src'])
+            except KeyError:
+                pass
+        return self.images
 
 
-print(geturl('https://www.google.com/'))
+if __name__ == "__main__":
+    urlimage = ImageScraper(website)
+    urlimage.get_html()
+    print(urlimage.get_images())
