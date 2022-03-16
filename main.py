@@ -77,6 +77,6 @@ def read_root():
 
 @app.get("/url/{link}")
 def read_item(link: Optional[str] = None):
-    urlimage = ImageScraper(website)
+    urlimage = ImageScraper('http://' + link)
     urlimage.get_html()
     return urlimage.get_images()
