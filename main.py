@@ -30,6 +30,7 @@ def read_root():
 
 @app.get("/grab/{link}")
 def grab_images(link: Optional[str] = None):
-    urlimage = ImageScraper('http://' + link)
-    urlimage.get_html()
-    return urlimage.get_images()
+    urlimages = ImageScraper('https://' + link)
+    print(urlimages.url)
+    urlimages.get_html()
+    return urlimages.get_images()

@@ -1,7 +1,7 @@
 from bs4 import BeautifulSoup
 import requests
 
-website = 'http://www.olin.edu/'
+website = 'https://www.olin.edu'
 
 
 class ImageScraper:
@@ -33,16 +33,20 @@ class ImageScraper:
         Use: defines self.images
         Returns: self.images
         """
+        print(self.html)
         imgs = self.html.find_all('img')
         for img in imgs:
             try:
                 if len(img['src']) > 0:
                     if img['src'][0:2] == '//':
-                        self.images.append(img['src'][2:])
+                        self.images.append(
+                            self.url + '/' + img['src'][2:].replace("http://", "https://", 1))
                     elif img['src'][0:1] == '/':
-                        self.images.append(self.url+img['src'][1:])
+                        self.images.append(
+                            self.url + '/' + img['src'][1:].replace("http://", "https://", 1))
                     else:
-                        self.images.append(img['src'])
+                        self.images.append(img['src'].replace(
+                            "http://", "https://", 1))
             except KeyError:
                 pass
         return self.images

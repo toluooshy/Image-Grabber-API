@@ -4,4 +4,4 @@ uvicorn==0.15.0
 pytest==6.2.5
 requests==2.26.0
 python-multipart==0.0.5
-lxml==4.9.0
+lxml==4.9.1
