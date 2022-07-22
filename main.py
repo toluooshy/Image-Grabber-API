@@ -5,7 +5,7 @@ from algorithm import ImageScraper
 
 
 class Payload(BaseModel):
-    link: str
+    url: str
 
 
 app = FastAPI()
@@ -34,6 +34,6 @@ def read_root():
 
 @app.post("/grab")
 def grab_images(data: Payload) -> dict:
-    urlimages = ImageScraper('http://' + data.link)
+    urlimages = ImageScraper('http://' + data.url)
     urlimages.get_html()
     return urlimages.get_images()
