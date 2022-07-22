@@ -1,7 +1,11 @@
-from typing import Optional
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from pydantic import BaseModel
 from algorithm import ImageScraper
+
+
+class Payload(BaseModel):
+    link: str
 
 
 app = FastAPI()
@@ -28,9 +32,8 @@ def read_root():
     return {"Root Request": 200}
 
 
-@app.get("/grab/{link}")
-def grab_images(link: Optional[str] = None):
-    urlimages = ImageScraper('https://' + link)
-    print(urlimages.url)
+@app.post("/grab")
+def grab_images(data: Payload) -> dict:
+    urlimages = ImageScraper('http://' + data.link)
     urlimages.get_html()
     return urlimages.get_images()
