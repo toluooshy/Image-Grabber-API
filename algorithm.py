@@ -33,6 +33,7 @@ class ImageScraper:
         Use: defines self.images
         Returns: self.images
         """
+        title = self.html.find('title').text
         imgs = self.html.find_all('img')
         for img in imgs:
             try:
@@ -41,19 +42,19 @@ class ImageScraper:
                         't_lazy/', '').replace('e_pixelate/', '')
                     if src[0:6] == '//cdn.':
                         self.images.append(
-                            ['https://' + src[2:], img['alt']])
+                            ['https://' + src[2:], title, img['alt']])
                     if src[0:4] == '//i.':
                         self.images.append(
-                            ['https://' + src[2:], img['alt']])
+                            ['https://' + src[2:], title, img['alt']])
                     elif src[0:2] == '//':
                         self.images.append(
-                            [str(self.url + '/' + src[2:]).replace('http://', 'https://'), img['alt']])
+                            [str(self.url + '/' + src[2:]).replace('http://', 'https://'), title, img['alt']])
                     elif src[0:1] == '/':
                         self.images.append(
-                            [str(self.url + '/' + src[1:]).replace('http://', 'https://'), img['alt']])
+                            [str(self.url + '/' + src[1:]).replace('http://', 'https://'), title, img['alt']])
                     else:
                         self.images.append([str(src).replace(
-                            'http://', 'https://'), img['alt']])
+                            'http://', 'https://'), title, img['alt']])
             except KeyError:
                 pass
         return self.images
@@ -62,4 +63,4 @@ class ImageScraper:
 if __name__ == "__main__":
     urlimage = ImageScraper(website)
     urlimage.get_html()
-    # print(urlimage.get_images())
+    print(urlimage.get_images())
