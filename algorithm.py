@@ -1,7 +1,7 @@
 from bs4 import BeautifulSoup
 import requests
 
-website = 'https://www.olin.edu'
+website = 'https://www.olin.edu/'
 
 
 class ImageScraper:
@@ -63,4 +63,4 @@ class ImageScraper:
 if __name__ == "__main__":
     urlimage = ImageScraper(website)
     urlimage.get_html()
-    print(urlimage.get_images())
+    # urlimage.get_images()
