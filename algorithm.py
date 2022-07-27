@@ -42,22 +42,22 @@ class ImageScraper:
                         't_lazy/', '').replace('e_pixelate/', '')
                     if src[0:6] == '//cdn.':
                         self.images.append(
-                            ['https://' + src[2:], title, img['alt']])
+                            ['https://' + src[2:], img['alt']])
                     if src[0:4] == '//i.':
                         self.images.append(
-                            ['https://' + src[2:], title, img['alt']])
+                            ['https://' + src[2:], img['alt']])
                     elif src[0:2] == '//':
                         self.images.append(
-                            [str(self.url + '/' + src[2:]).replace('http://', 'https://'), title, img['alt']])
+                            [str(self.url + '/' + src[2:]).replace('http://', 'https://'), img['alt']])
                     elif src[0:1] == '/':
                         self.images.append(
-                            [str(self.url + '/' + src[1:]).replace('http://', 'https://'), title, img['alt']])
+                            [str(self.url + '/' + src[1:]).replace('http://', 'https://'), img['alt']])
                     else:
                         self.images.append([str(src).replace(
-                            'http://', 'https://'), title, img['alt']])
+                            'http://', 'https://'), img['alt']])
             except KeyError:
                 pass
-        return self.images
+        return {'title': title, 'images': self.images}
 
 
 if __name__ == "__main__":
