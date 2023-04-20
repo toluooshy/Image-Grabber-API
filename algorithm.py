@@ -1,8 +1,11 @@
 from bs4 import BeautifulSoup
 import requests
+import base64
 
 website = 'https://www.olin.edu/'
 
+def get_base64(url):
+    return base64.b64encode(requests.get(url).content)
 
 class ImageScraper:
     def __init__(self, url):
@@ -42,19 +45,19 @@ class ImageScraper:
                         't_lazy/', '').replace('e_pixelate/', '')
                     if src[0:6] == '//cdn.':
                         self.images.append(
-                            ['https://' + src[2:], img['alt']])
+                            ['https://' + src[2:], img['alt'], get_base64(src)])
                     if src[0:4] == '//i.':
                         self.images.append(
-                            ['https://' + src[2:], img['alt']])
+                            ['https://' + src[2:], img['alt'], get_base64(src)])
                     elif src[0:2] == '//':
                         self.images.append(
-                            [str(self.url + '/' + src[2:]).replace('http://', 'https://'), img['alt']])
+                            [str(self.url + '/' + src[2:]).replace('http://', 'https://'), img['alt'], get_base64(src)])
                     elif src[0:1] == '/':
                         self.images.append(
-                            [str(self.url + '/' + src[1:]).replace('http://', 'https://'), img['alt']])
+                            [str(self.url + '/' + src[1:]).replace('http://', 'https://'), img['alt'], get_base64(src)])
                     else:
                         self.images.append([str(src).replace(
-                            'http://', 'https://'), img['alt']])
+                            'http://', 'https://'), img['alt'], get_base64(src)])
             except KeyError:
                 pass
         return {'title': title, 'images': self.images}
